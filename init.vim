@@ -30,7 +30,6 @@ let &t_ut=''
 set autochdir                               " 自动切换当前目录为文件所在目录
 
 
-
 " ===================== Editor behavior ======================
 "
 set mouse=a                                 " 启用鼠标
@@ -39,21 +38,20 @@ set number                                  " 显示行号
 " set cursorline                            " 突出显示当前行
 set encoding=utf-8                          " 设置utf-8编码
 " " 缩进设置
-au BufNewFile,BufRead *.py,*.pyw
-	\ set tabstop=4
-	\ set softtabstop=4
-	\ set shiftwidth=4
-	\ set textwidth=79
-	\ set expandtab
-	\ set autoindent
-	\ set fileformat=unix
+au BufNewFile,BufRead *.py set tabstop=4
+au BufNewFile,BufRead *.py set softtabstop=4
+au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set textwidth=79
+au BufNewFile,BufRead *.py set expandtab
+"au BufNewFile,BufRead *.py set autoindent
+au BufNewFile,BufRead *.py set fileformat=unix
 "set noexpandtab                             " 不用空格展开<Tab>
 "set tabstop=4
 "set shiftwidth=4
 "set softtabstop=4
-"set textwidth=88
+"set textwidth=79
 "set wrap                                    " 设置文本达到textwidth宽度时自动换行，但实际文件还是一行
-"set autoindent                              " 插入模式下输入<cr>或使用"o"或"O"命令开新行，从当前行复制缩进距离
+set autoindent                              " 插入模式下输入<cr>或使用"o"或"O"命令开新行，从当前行复制缩进距离
 set list
 set listchars=tab:\|\ ,trail:▫              " Tab 和 空格显示符
 
@@ -100,7 +98,6 @@ set virtualedit=block  " ctrl+v 模式下选中方块
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
-
 " ===
 " === Basic Mappings
 " ===
@@ -113,6 +110,7 @@ noremap Q :q<CR>
 noremap <C-q> :qa<CR>
 noremap S :up<CR>
 "inoremap <C-s> <ESC>:up<CR>i
+
 
 " ===
 " === Cursor Movement
@@ -147,6 +145,7 @@ inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 inoremap <C-b> <PageUp>
 inoremap <C-f> <PageDown>
+
 
 " ===
 " === Window management
@@ -188,6 +187,7 @@ noremap sk :set splitbelow<CR>:split<CR>
 noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap sl :set splitright<CR>:vsplit<CR>
 
+
 " ===
 " === Tab management
 " ===
@@ -201,8 +201,9 @@ noremap tl :+tabnext<CR>
 noremap tj :-tabmove<CR>
 noremap tk :+tabmove<CR>
 
-
-" Compile function
+" ===
+" === Compile function
+" ===
 "noremap <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
@@ -225,20 +226,18 @@ endfunc
 " ===
 " === Install Plugins with Vim-Plug
 " ===
-
 call plug#begin('~/.config/nvim/plugged')
 
-" 快速自动对齐插件
+" #### 快速自动对齐插件
 Plug 'junegunn/vim-easy-align'
 
-" 输入法状态切换
+" #### 输入法状态切换
 "Plug 'https://github.com/vim-scripts/fcitx.vim.git'
 
+" #### Pretty Dress
 " 状态栏
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
-
-" Pretty Dress
 Plug 'theniceboy/eleline.vim'
 "Plug 'bling/vim-bufferline'
 "Plug 'liuchengxu/space-vim-theme'
@@ -247,18 +246,16 @@ Plug 'theniceboy/eleline.vim'
 "Plug 'rakr/vim-one'
 "Plug 'mhartington/oceanic-next'
 "Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'ajmwagar/vim-deus'
+Plug 'ajmwagar/vim-deus'  " deus theme
 "Plug 'arzg/vim-colors-xcode'
 
-" File navigaton
+" #### File navigaton
 "Plug 'preservim/nerdtree'
 "Plug 'jistr/vim-nerdtree-tabs'
 Plug 'junegunn/fzf.vim'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
-
-" ####
-" Auto Complete
+" #### Auto Complete 
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ncm2/ncm2'
@@ -278,38 +275,65 @@ Plug 'ncm2/ncm2-ultisnips'
 "Plug 'marcweber/vim-addon-mw-utils'
 "Plug 'garbas/vim-snipmate'
 
-
 "Plug 'ycm-core/YouCompleteMe'
 
-" ####
-" Error checking
+" #### Error checking
 Plug 'dense-analysis/ale'
 
-
-" ####
-" Snippets
+" #### Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-" ####
-" Formatter
+" #### Formatter
 Plug 'Chiel92/vim-autoformat'
 
-" Python
+" #### Python
 Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim'
 
-
-" Tex
+" #### Tex
 "Plug 'lervag/vimtex'
 
-" Debugger
+" #### Taglist
+Plug 'liuchengxu/vista.vim'
+
+" #### Debugger
 Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
 
+" #### Editor Enhancement"
+" "Plug 'Raimondi/delimitMate'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'mg979/vim-visual-multi'
+Plug 'scrooloose/nerdcommenter' " in <space>cn to comment a line
+Plug 'AndrewRadev/switch.vim' " gs to switch
+" Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
+" Plug 'gcmt/wildfire.vim' " in Visual mode, type k' to select all text in '', or type k) k] k} kp
+" Plug 'junegunn/vim-after-object' " da= to delete what's after =
+" Plug 'junegunn/vim-easy-align' " gaip= to align the = in paragraph, 
+" Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
+" Plug 'easymotion/vim-easymotion'
+" Plug 'Konfekt/FastFold'
+" "Plug 'junegunn/vim-peekaboo'
+" "Plug 'wellle/context.vim'
+" Plug 'svermeulen/vim-subversive'
 
-" ###
+" #### Mini Vim-APP
+"Plug 'voldikss/vim-floaterm'
+"Plug 'liuchengxu/vim-clap'
+"Plug 'jceb/vim-orgmode'
+Plug 'mhinz/vim-startify'  " 打开vim时显示打开选项
+
+" #### Other visual enhancement
+" Plug 'ryanoasis/vim-devicons'
+" Plug 'luochen1990/rainbow'
+" Plug 'mg979/vim-xtabline'
+" Plug 'wincent/terminus'
+
+
+
+
 call plug#end()
 
 
@@ -336,10 +360,10 @@ color deus
 hi NonText ctermfg=gray guifg=grey10
 "hi SpecialKey ctermfg=blue guifg=grey70
 
+
 " ===================== Start of Plugin Settings =====================
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
@@ -445,6 +469,24 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 "let b:ale_linters = ['pylint']
 "let b:ale_fixers = ['autopep8', 'yapf']
 
+" ===
+" === Taglist Vista.vim
+" ===
+noremap <silent> T :Vista!!<CR>
+let g:vista_icon_indent = ["╰▸ ", "├▸ "]
+let g:vista_default_executive = 'ctags'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+	\   "function": "\uf794",
+	\   "variable": "\uf71b",
+	\  }
+function! NearestMethodOrFunction() abort
+	return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+set statusline+=%{NearestMethodOrFunction()}
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
 
 " ===
 " === Ultisnips
@@ -456,6 +498,61 @@ let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/UltiSnips/']
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap <c-r>
+
+
+" ===
+" === FZF
+" ===
+" set rtp+=/usr/local/opt/fzf
+" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+set rtp+=~/.fzf
+noremap <C-p> :FZF<CR>
+" noremap <C-f> :Ag<CR>
+" noremap <C-h> :MRU<CR>
+" noremap <C-t> :BTags<CR>
+" noremap <C-l> :LinesWithPreview<CR>
+" noremap <C-w> :Buffers<CR>
+" "noremap ; :History:<CR>
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noruler
+	\| autocmd BufLeave <buffer> set laststatus=2 ruler
+
+command! -bang -nargs=* Buffers
+	\ call fzf#vim#buffers(
+	\   '',
+	\   <bang>0 ? fzf#vim#with_preview('up:60%')
+	\           : fzf#vim#with_preview('right:0%', '?'),
+	\   <bang>0)
+
+command! -bang -nargs=* LinesWithPreview
+	\ call fzf#vim#grep(
+	\   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
+	\   fzf#vim#with_preview({}, 'up:50%', '?'),
+	\   1)
+
+command! -bang -nargs=* Ag
+	\ call fzf#vim#ag(
+	\   '',
+	\   <bang>0 ? fzf#vim#with_preview('up:60%')
+	\           : fzf#vim#with_preview('right:50%', '?'),
+	\   <bang>0)
+
+command! -bang -nargs=* MRU call fzf#vim#history(fzf#vim#with_preview())
+
+command! -bang BTags
+	\ call fzf#vim#buffer_tags('', {
+	\     'down': '40%',
+	\     'options': '--with-nth 1
+	\                 --reverse
+	\                 --prompt "> "
+	\                 --preview-window="70%"
+	\                 --preview "
+	\                     tail -n +\$(echo {3} | tr -d \";\\\"\") {2} |
+	\                     head -n 16"'
+	\ })
+
+
 
 " ===
 " === :Autoformat
