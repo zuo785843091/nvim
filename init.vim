@@ -1,23 +1,28 @@
 
 
-" ===
-" === Auto load for first time uses
-" ===
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+"" ===
+"" === Auto load for first time uses
+"" ===
+"if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	"silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				"\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	"autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"endif
+"
+"" ===
+"" === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
+"" ===
+"let has_machine_specific_file = 1
+"if empty(glob('~/.config/nvim/_machine_specific.vim'))
+	"let has_machine_specific_file = 0
+	"silent! exec "!cp ~/.config/nvim/default_configs/_machine_specific_default.vim ~/.config/nvim/_machine_specific.vim"
+"endif
+"source ~/.config/nvim/_machine_specific.vim
 
-" ===
-" === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
-" ===
-let has_machine_specific_file = 1
-if empty(glob('~/.config/nvim/_machine_specific.vim'))
-	let has_machine_specific_file = 0
-	silent! exec "!cp ~/.config/nvim/default_configs/_machine_specific_default.vim ~/.config/nvim/_machine_specific.vim"
-endif
-source ~/.config/nvim/_machine_specific.vim
+let g:python_host_skip_check=1
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_skip_check=1
+let g:python3_host_prog = '/usr/bin/python3'
 
 " ====================
 " === Editor Setup ===
@@ -45,6 +50,10 @@ au BufNewFile,BufRead *.py set textwidth=79
 au BufNewFile,BufRead *.py set expandtab
 "au BufNewFile,BufRead *.py set autoindent
 au BufNewFile,BufRead *.py set fileformat=unix
+
+au BufNewFile,BufRead *.json set tabstop=2
+au BufNewFile,BufRead *.json set softtabstop=2
+au BufNewFile,BufRead *.json set shiftwidth=2
 "set noexpandtab                             " 不用空格展开<Tab>
 "set tabstop=4
 "set shiftwidth=4
@@ -74,7 +83,7 @@ set showcmd                                 " 显示输入中的命令
 set wildmenu                                "
 set ignorecase                              " 搜索忽略大小写
 set smartcase                               " 有大写时不忽略
-set shortmess+=c
+"set shortmess+=c
 set inccommand=split
 "set completeopt=longest,noinsert,menuone,noselect,preview " 补全模式设置
 set ttyfast "should make scrolling faster
@@ -169,8 +178,9 @@ noremap <LEADER>sr :source ~/.config/nvim/init.vim<CR>
 nnoremap Y y$
 
 " Copy to system clipboard
-vnoremap Y "+y
+"vnoremap Y "+y
 noremap P "+p
+autocmd FileType * vnoremap Y :w !xclip -i -sel c<CR><CR>
 
 " Folding
 noremap <silent> <LEADER>o za
@@ -248,6 +258,7 @@ Plug 'theniceboy/eleline.vim'
 "Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'ajmwagar/vim-deus'  " deus theme
 "Plug 'arzg/vim-colors-xcode'
+"Plug 'ryanoasis/vim-devicons'
 
 " #### File navigaton
 "Plug 'preservim/nerdtree'
@@ -256,29 +267,29 @@ Plug 'junegunn/fzf.vim'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
 " #### Auto Complete 
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-jedi'
-"Plug 'ncm2/ncm2-github'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-"Plug 'ncm2/ncm2-match-highlight'
-"Plug 'ncm2/ncm2-markdown-subscope'
-Plug 'ncm2/float-preview.nvim'
-Plug 'ncm2/ncm2-ultisnips'
-"" based on snipmate
-"Plug 'ncm2/ncm2-snipmate'
-"" snipmate dependencies
-"Plug 'tomtom/tlib_vim'
-"Plug 'marcweber/vim-addon-mw-utils'
-"Plug 'garbas/vim-snipmate'
+"Plug 'ncm2/ncm2'
+"Plug 'roxma/nvim-yarp'
+"Plug 'ncm2/ncm2-jedi'
+""Plug 'ncm2/ncm2-github'
+"Plug 'ncm2/ncm2-bufword'
+"Plug 'ncm2/ncm2-path'
+""Plug 'ncm2/ncm2-match-highlight'
+""Plug 'ncm2/ncm2-markdown-subscope'
+"Plug 'ncm2/float-preview.nvim'
+"Plug 'ncm2/ncm2-ultisnips'
+""" based on snipmate
+""Plug 'ncm2/ncm2-snipmate'
+""" snipmate dependencies
+""Plug 'tomtom/tlib_vim'
+""Plug 'marcweber/vim-addon-mw-utils'
+""Plug 'garbas/vim-snipmate'
 
-"Plug 'ycm-core/YouCompleteMe'
+""Plug 'ycm-core/YouCompleteMe'
 
-" #### Error checking
-Plug 'dense-analysis/ale'
+"" #### Error checking
+"Plug 'dense-analysis/ale'
 
 " #### Snippets
 Plug 'SirVer/ultisnips'
@@ -297,7 +308,7 @@ Plug 'tweekmonster/braceless.vim'
 "Plug 'lervag/vimtex'
 
 " #### Taglist
-Plug 'liuchengxu/vista.vim'
+"Plug 'liuchengxu/vista.vim'
 
 " #### Debugger
 Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
@@ -332,7 +343,8 @@ Plug 'mhinz/vim-startify'  " 打开vim时显示打开选项
 " Plug 'wincent/terminus'
 
 
-
+" #### indentline
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
@@ -416,37 +428,39 @@ nnoremap <silent> R :RnvimrSync<CR>:RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR
 let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
 
 
-" ===
-" === NCM2
-" ===
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-""inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>": "\<CR>")
-autocmd BufEnter * call ncm2#enable_for_buffer() "缓存
-set completeopt=noinsert,menuone,noselect "补全模式设置 noselect:不自动选择第一行
-set	shortmess+=c
-let ncm2#popup_delay = 5    " 延迟弹窗，这样提示更加流畅
-let g:ncm2#matcher = "substrfuzzy"   "模糊匹配模式
-let g:ncm2_jedi#python_version = 3
-let g:ncm2#match_highlight = 'bold'
-let g:jedi#auto_initialization = 1
-""let g:jedi#completion_enabled = 0
-""let g:jedi#auto_vim_configuration = 0
-""let g:jedi#smart_auto_mapping = 0
-"let g:jedi#popup_on_dot = 1
-"let g:jedi#completion_command = ""
-"let g:jedi#show_call_signatures = "1"
+"" ===
+"" === NCM2
+"" ===
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"""inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>": "\<CR>")
+"autocmd BufEnter * call ncm2#enable_for_buffer() "缓存
+"set completeopt=noinsert,menuone,noselect "补全模式设置 noselect:不自动选择第一行
+""set completeopt=longest,noinsert,menuone,noselect,preview " 补全模式设置
+"set	shortmess+=c
+"let ncm2#popup_delay = 5    " 延迟弹窗，这样提示更加流畅
+"let g:ncm2#matcher = "substrfuzzy"   "模糊匹配模式
+"let g:ncm2_jedi#python_version = 3
+"let g:ncm2#match_highlight = 'bold'
+"let g:jedi#auto_initialization = 1
+"""let g:jedi#completion_enabled = 0
+"""let g:jedi#auto_vim_configuration = 0
+"""let g:jedi#smart_auto_mapping = 0
+""let g:jedi#popup_on_dot = 1
+""let g:jedi#completion_command = ""
+""let g:jedi#show_call_signatures = "1"
+"" 悬浮窗设置
+"let g:float_preview#docked = 0
 
-let g:float_preview#docked = 1
-" ======== ncm2_ultisnips ================================
-" Press enter key to trigger snippet expansion
-" The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
-" c-j c-k for moving in snippet
-"let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-"let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
+"" ======== ncm2_ultisnips ================================
+"" Press enter key to trigger snippet expansion
+"" The parameters are the same as `:help feedkeys()`
+"inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+"" c-j c-k for moving in snippet
+""let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+""let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+""let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+"let g:UltiSnipsRemoveSelectModeMappings = 0
 
 "" ======== snipmate =====================================
 "" Press enter key to trigger snippet expansion
@@ -464,28 +478,96 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 
 
 " ===
-" === ale
+" === coc
 " ===
-"let b:ale_linters = ['pylint']
-"let b:ale_fixers = ['autopep8', 'yapf']
-
-" ===
-" === Taglist Vista.vim
-" ===
-noremap <silent> T :Vista!!<CR>
-let g:vista_icon_indent = ["╰▸ ", "├▸ "]
-let g:vista_default_executive = 'ctags'
-let g:vista_fzf_preview = ['right:50%']
-let g:vista#renderer#enable_icon = 1
-let g:vista#renderer#icons = {
-	\   "function": "\uf794",
-	\   "variable": "\uf71b",
-	\  }
-function! NearestMethodOrFunction() abort
-	return get(b:, 'vista_nearest_method_or_function', '')
+" fix the most annoying bug that coc has
+" "silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
+" 
+"let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-gitignore', 'coc-vimlsp', 'coc-tailwindcss', 'coc-stylelint', 'coc-tslint', 'coc-lists', 'coc-git', 'coc-explorer', 'coc-pyright', 'coc-sourcekit', 'coc-translator', 'coc-flutter']
+let g:coc_global_extensions = ['coc-json', 'coc-yank', 'coc-translator'] 
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"nmap <silent> <TAB> <Plug>(coc-range-select)
+"xmap <silent> <TAB> <Plug>(coc-range-select)
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]	=~ '\s'
 endfunction
-set statusline+=%{NearestMethodOrFunction()}
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+inoremap <silent><expr> <Tab>
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<Tab>" :
+	\ coc#refresh()
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Open up coc-commands
+"nnoremap <c-c> :CocCommand<CR>
+" Text Objects
+"xmap kf <Plug>(coc-funcobj-i)
+"xmap af <Plug>(coc-funcobj-a)
+"omap kf <Plug>(coc-funcobj-i)
+"omap af <Plug>(coc-funcobj-a)
+" Useful commands
+nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<cr>
+nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
+"nmap <leader>rn <Plug>(coc-rename)
+"nmap tt :Coc Command explorer<CR>
+" coc-translator
+nmap ts <Plug>(coc-translator-p)
+vmap ts <Plug>(coc-translator-pv)
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+
+"" ===
+"" === ale
+"" ===
+"let g:ale_linters={'python': ['pylint']}
+""let b:ale_fixers=['yapf']
+"let g:ale_fixers={'python': ['yapf', 'autopep8']}
+"let g:ale_fix_on_save=1
+""let g:ale_set_balloons=1
+""let g:ale_hover_to_preview=1
+""let g:ale_sign_error = '>>'
+""let g:ale_sign_warning = '--'
+""let g:airline#extensions#ale#enabled = 1
+""let g:ale_echo_msg_error_str = 'E'
+""let g:ale_echo_msg_warning_str = 'W'
+""let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
+""let g:ale_set_loclist = 0
+""let g:ale_set_quickfix = 1
+""let g:ale_open_list = 1
+"" Set this if you want to.
+"" This can be useful if you are combining ALE with
+"" some other plugin which sets quickfix errors, etc.
+""let g:ale_keep_list_window_open = 1
+"noremap gd :ALEGoToDefinition<CR>
+
+
+"" ===
+"" === Taglist Vista.vim
+"" ===
+"noremap <silent> T :Vista!!<CR>
+"let g:vista_icon_indent = ["╰▸ ", "├▸ "]
+"let g:vista_default_executive = 'ctags'
+"let g:vista_fzf_preview = ['right:50%']
+"let g:vista#renderer#enable_icon = 1
+"let g:vista#renderer#icons = {
+	"\   "function": "\uf794",
+	"\   "variable": "\uf71b",
+	"\  }
+"function! NearestMethodOrFunction() abort
+	"return get(b:, 'vista_nearest_method_or_function', '')
+"endfunction
+"set statusline+=%{NearestMethodOrFunction()}
+"autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 
 " ===
@@ -553,11 +635,11 @@ command! -bang BTags
 	\ })
 
 
-
 " ===
 " === :Autoformat
 " ===
 nnoremap \f :Autoformat<CR>
+
 
 " ===
 " === vimspector
@@ -578,4 +660,9 @@ sign define vimspectorBP text=☛ texthl=Normal
 sign define vimspectorBPDisabled text=o texthl=Normal
 sign define vimspectorPC text=> texthl=SpellBad
 
-
+" ===
+" === indentline
+" ===
+let g:indentLine_setColors = 0
+"let g:indentLine_color_term = 202
+"let g:indentLine_bgcolor_term = 2

@@ -1,0 +1,13 @@
+{
+	"coc.preferences.formatOnSaveFiletypes": [
+		"javascript",
+		"html",
+		"css",
+		"python",
+		"dart"
+	],
+	"python.jediEnabled": true,
+    "python.formatting.provider": "yapf",
+    "python.autoUpdateLanguageServer": true
+}
+
