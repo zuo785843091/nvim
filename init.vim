@@ -19,14 +19,11 @@
 "endif
 "source ~/.config/nvim/_machine_specific.vim
 
-let g:python_host_skip_check=1
-let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_skip_check=1
-let g:python3_host_prog = '/usr/bin/python3'
+"let g:python_host_skip_check=1
+"let g:python_host_prog = '/usr/bin/python'
+"let g:python3_host_skip_check=1
+"let g:python3_host_prog = '/usr/bin/python3'
 
-" ====================
-" === Editor Setup ===
-" ====================
 " ===
 " === System
 " ===
@@ -43,22 +40,23 @@ set number                                  " 显示行号
 " set cursorline                            " 突出显示当前行
 set encoding=utf-8                          " 设置utf-8编码
 " " 缩进设置
-au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py set softtabstop=4
-au BufNewFile,BufRead *.py set shiftwidth=4
-au BufNewFile,BufRead *.py set textwidth=79
-au BufNewFile,BufRead *.py set expandtab
-"au BufNewFile,BufRead *.py set autoindent
-au BufNewFile,BufRead *.py set fileformat=unix
+"au BufNewFile,BufRead *.py set tabstop="4
+"au BufNewFile,BufRead *.py set softtabstop=4
+"au BufNewFile,BufRead *.py set shiftwidth=4
+"au BufNewFile,BufRead *.py set textwidth=79
+"au BufNewFile,BufRead *.py set expandtab
+""au BufNewFile,BufRead *.py set autoindent
+"au BufNewFile,BufRead *.py set fileformat=unix
 
-au BufNewFile,BufRead *.json set tabstop=2
-au BufNewFile,BufRead *.json set softtabstop=2
-au BufNewFile,BufRead *.json set shiftwidth=2
-"set noexpandtab                             " 不用空格展开<Tab>
-"set tabstop=4
-"set shiftwidth=4
-"set softtabstop=4
-"set textwidth=79
+"au BufNewFile,BufRead *.json set tabstop=2
+"au BufNewFile,BufRead *.json set softtabstop=2
+"au BufNewFile,BufRead *.json set shiftwidth=2
+set expandtab                             " 用空格展开<Tab>
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set textwidth=79
+set fileformat=unix
 "set wrap                                    " 设置文本达到textwidth宽度时自动换行，但实际文件还是一行
 set autoindent                              " 插入模式下输入<cr>或使用"o"或"O"命令开新行，从当前行复制缩进距离
 set list
@@ -83,9 +81,7 @@ set showcmd                                 " 显示输入中的命令
 set wildmenu                                "
 set ignorecase                              " 搜索忽略大小写
 set smartcase                               " 有大写时不忽略
-"set shortmess+=c
 set inccommand=split
-"set completeopt=longest,noinsert,menuone,noselect,preview " 补全模式设置
 set ttyfast "should make scrolling faster
 set lazyredraw "same as above
 set visualbell
@@ -148,13 +144,12 @@ noremap <C-K> 5<C-y>
 "noremap H I
 
 " 输入模式下的光标移动
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
-inoremap <C-b> <PageUp>
-inoremap <C-f> <PageDown>
-
+inoremap <A-k> <Up>
+inoremap <A-j> <Down>
+inoremap <A-h> <Left>
+inoremap <A-l> <Right>
+inoremap <A-b> <PageUp>
+inoremap <A-f> <PageDown>
 
 " ===
 " === Window management
@@ -190,7 +185,6 @@ noremap <LEADER>q <C-w>j:q<CR>
 
 " Disable the default s key
 noremap s <nop>
-
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
 noremap sj :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 noremap sk :set splitbelow<CR>:split<CR>
@@ -211,10 +205,11 @@ noremap tl :+tabnext<CR>
 noremap tj :-tabmove<CR>
 noremap tk :+tabmove<CR>
 
+
 " ===
 " === Compile function
 " ===
-"noremap <F5> :call CompileRunGcc()<CR>
+noremap <LEADER>rr :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -246,19 +241,8 @@ Plug 'junegunn/vim-easy-align'
 
 " #### Pretty Dress
 " 状态栏
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'theniceboy/eleline.vim'
-"Plug 'bling/vim-bufferline'
-"Plug 'liuchengxu/space-vim-theme'
-"Plug 'morhetz/gruvbox'
-"Plug 'ayu-theme/ayu-vim'
-"Plug 'rakr/vim-one'
-"Plug 'mhartington/oceanic-next'
-"Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'ajmwagar/vim-deus'  " deus theme
-"Plug 'arzg/vim-colors-xcode'
-"Plug 'ryanoasis/vim-devicons'
 
 " #### File navigaton
 "Plug 'preservim/nerdtree'
@@ -269,27 +253,21 @@ Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 " #### Auto Complete 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-"Plug 'ncm2/ncm2'
-"Plug 'roxma/nvim-yarp'
-"Plug 'ncm2/ncm2-jedi'
-""Plug 'ncm2/ncm2-github'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-jedi'
+"Plug 'ncm2/ncm2-github'
 "Plug 'ncm2/ncm2-bufword'
 "Plug 'ncm2/ncm2-path'
-""Plug 'ncm2/ncm2-match-highlight'
-""Plug 'ncm2/ncm2-markdown-subscope'
-"Plug 'ncm2/float-preview.nvim'
-"Plug 'ncm2/ncm2-ultisnips'
-""" based on snipmate
-""Plug 'ncm2/ncm2-snipmate'
-""" snipmate dependencies
-""Plug 'tomtom/tlib_vim'
-""Plug 'marcweber/vim-addon-mw-utils'
-""Plug 'garbas/vim-snipmate'
+"Plug 'ncm2/ncm2-match-highlight'
+"Plug 'ncm2/ncm2-markdown-subscope'
+Plug 'ncm2/float-preview.nvim'
+Plug 'ncm2/ncm2-ultisnips'
 
-""Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 
 "" #### Error checking
-"Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 " #### Snippets
 Plug 'SirVer/ultisnips'
@@ -307,40 +285,21 @@ Plug 'tweekmonster/braceless.vim'
 " #### Tex
 "Plug 'lervag/vimtex'
 
-" #### Taglist
-"Plug 'liuchengxu/vista.vim'
-
 " #### Debugger
 Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
 
 " #### Editor Enhancement"
-" "Plug 'Raimondi/delimitMate'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'mg979/vim-visual-multi'
+Plug 'mg979/vim-visual-multi'
 Plug 'scrooloose/nerdcommenter' " in <space>cn to comment a line
 Plug 'AndrewRadev/switch.vim' " gs to switch
-" Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
-" Plug 'gcmt/wildfire.vim' " in Visual mode, type k' to select all text in '', or type k) k] k} kp
-" Plug 'junegunn/vim-after-object' " da= to delete what's after =
-" Plug 'junegunn/vim-easy-align' " gaip= to align the = in paragraph, 
-" Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
-" Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 " Plug 'Konfekt/FastFold'
-" "Plug 'junegunn/vim-peekaboo'
-" "Plug 'wellle/context.vim'
-" Plug 'svermeulen/vim-subversive'
 
 " #### Mini Vim-APP
-"Plug 'voldikss/vim-floaterm'
-"Plug 'liuchengxu/vim-clap'
-"Plug 'jceb/vim-orgmode'
 Plug 'mhinz/vim-startify'  " 打开vim时显示打开选项
 
 " #### Other visual enhancement
 " Plug 'ryanoasis/vim-devicons'
-" Plug 'luochen1990/rainbow'
-" Plug 'mg979/vim-xtabline'
-" Plug 'wincent/terminus'
 
 
 " #### indentline
@@ -355,19 +314,8 @@ call plug#end()
 set termguicolors	" enable true colors support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
-"let ayucolor="mirage"
-"let g:oceanic_next_terminal_bold = 1
-"let g:oceanic_next_terminal_italic = 1
-"let g:one_allow_italics = 1
 
-"color dracula
-"color one
 color deus
-"color gruvbox
-"let ayucolor="light"
-"color ayu
-"set background=light
-"color xcodedark
 
 hi NonText ctermfg=gray guifg=grey10
 "hi SpecialKey ctermfg=blue guifg=grey70
@@ -381,43 +329,10 @@ nmap ga <Plug>(EasyAlign)
 
 
 " ===
-" === Airline
-" ===
-"let g:airline_theme='dracula'
-"let g:airline#extensions#coc#enabled = 0
-"let g:airline#extensions#branch#enabled = 0
-"let g:airline#extensions#tabline#enabled = 0
-"let g:airline#extensions#tabline#formatter = 'unique_tail'
-"let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#show_buffers = 0
-"let g:airline_left_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_mode_map = {
-      "\ '__' : '-',
-      "\ 'n'  : 'Nor',
-      "\ 'i'  : 'Ins',
-      "\ 'R'  : 'Rpl',
-      "\ 'c'  : 'Cmd',
-      "\ 'v'  : 'Vis',
-      "\ 'V'  : 'Vli',
-      "\ '' : 'Vbl',
-      "\ 's'  : 'S',
-      "\ 'S'  : 'S',
-      "\ '' : 'S',
-      "\ }
-
-
-" ===
 " === eleline.vim
 " ===
 let g:airline_powerline_fonts = 0
 
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:airline#extensions#tabline#formatter = 'default'
-
-"map <F2> :NERDTreeToggle<CR>
 
 " ===
 " === rnvimr
@@ -428,54 +343,40 @@ nnoremap <silent> R :RnvimrSync<CR>:RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR
 let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
 
 
-"" ===
-"" === NCM2
-"" ===
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"""inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>": "\<CR>")
-"autocmd BufEnter * call ncm2#enable_for_buffer() "缓存
-"set completeopt=noinsert,menuone,noselect "补全模式设置 noselect:不自动选择第一行
-""set completeopt=longest,noinsert,menuone,noselect,preview " 补全模式设置
-"set	shortmess+=c
-"let ncm2#popup_delay = 5    " 延迟弹窗，这样提示更加流畅
-"let g:ncm2#matcher = "substrfuzzy"   "模糊匹配模式
-"let g:ncm2_jedi#python_version = 3
-"let g:ncm2#match_highlight = 'bold'
-"let g:jedi#auto_initialization = 1
-"""let g:jedi#completion_enabled = 0
-"""let g:jedi#auto_vim_configuration = 0
-"""let g:jedi#smart_auto_mapping = 0
-""let g:jedi#popup_on_dot = 1
-""let g:jedi#completion_command = ""
-""let g:jedi#show_call_signatures = "1"
-"" 悬浮窗设置
-"let g:float_preview#docked = 0
+" ===
+" === NCM2
+" ===
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+""inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>": "\<CR>")
+autocmd BufEnter * call ncm2#enable_for_buffer() "缓存
+set completeopt=noinsert,menuone,noselect "补全模式设置 noselect:不自动选择第一行
+"set completeopt=longest,noinsert,menuone,noselect,preview " 补全模式设置
+set	shortmess+=c
+let ncm2#popup_delay = 5    " 延迟弹窗，这样提示更加流畅
+let g:ncm2#matcher = "substrfuzzy"   "模糊匹配模式
+let g:ncm2_jedi#python_version = 3
+let g:ncm2#match_highlight = 'bold'
+let g:jedi#auto_initialization = 1
+""let g:jedi#completion_enabled = 0
+""let g:jedi#auto_vim_configuration = 0
+""let g:jedi#smart_auto_mapping = 0
+"let g:jedi#popup_on_dot = 1
+"let g:jedi#completion_command = ""
+"let g:jedi#show_call_signatures = "1"
+" 悬浮窗设置
+let g:float_preview#docked = 0
 
-"" ======== ncm2_ultisnips ================================
-"" Press enter key to trigger snippet expansion
-"" The parameters are the same as `:help feedkeys()`
-"inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
-"" c-j c-k for moving in snippet
-""let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-""let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-""let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-"let g:UltiSnipsRemoveSelectModeMappings = 0
-
-"" ======== snipmate =====================================
-"" Press enter key to trigger snippet expansion
-"" " The parameters are the same as `:help feedkeys()`
-"inoremap <silent> <expr> <CR> ncm2_snipmate#expand_or("\<CR>", 'n')
-"" wrap <Plug>snipMateTrigger so that it works for both completin and normal
-"" snippet
-"" inoremap <expr> <c-u> ncm2_snipmate#expand_or("\<Plug>snipMateTrigger", "m")
-"" c-j c-k for moving in snippet
-"let g:snips_no_mappings = 1
-"vmap <c-j> <Plug>snipMateNextOrTrigger
-"vmap <c-k> <Plug>snipMateBack
-"imap <expr> <c-k> pumvisible() ? "\<c-y>\<Plug>snipMateBack" : "\<Plug>snipMateBack"
-"imap <expr> <c-j> pumvisible() ? "\<c-y>\<Plug>snipMateNextOrTrigger" : "\<Plug>snipMateNextOrTrigger"
-
+" ======== ncm2_ultisnips ================================
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+" c-j c-k for moving in snippet
+"let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+"let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+ 
 
 " ===
 " === coc
@@ -484,7 +385,7 @@ let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
 " "silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
 " 
 "let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-gitignore', 'coc-vimlsp', 'coc-tailwindcss', 'coc-stylelint', 'coc-tslint', 'coc-lists', 'coc-git', 'coc-explorer', 'coc-pyright', 'coc-sourcekit', 'coc-translator', 'coc-flutter']
-let g:coc_global_extensions = ['coc-json', 'coc-yank', 'coc-translator'] 
+let g:coc_global_extensions = ['coc-json', 'coc-yank', 'coc-translator']
 "set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "nmap <silent> <TAB> <Plug>(coc-range-select)
 "xmap <silent> <TAB> <Plug>(coc-range-select)
@@ -517,7 +418,7 @@ nmap <silent> gd <Plug>(coc-definition)
 "nmap <silent> gi <Plug>(coc-implementation)
 "nmap <silent> gr <Plug>(coc-references)
 "nmap <leader>rn <Plug>(coc-rename)
-"nmap tt :Coc Command explorer<CR>
+"nmap tt :CocCommand explorer<CR>
 " coc-translator
 nmap ts <Plug>(coc-translator-p)
 vmap ts <Plug>(coc-translator-pv)
@@ -526,48 +427,29 @@ vmap ts <Plug>(coc-translator-pv)
 "nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 
-"" ===
-"" === ale
-"" ===
-"let g:ale_linters={'python': ['pylint']}
-""let b:ale_fixers=['yapf']
-"let g:ale_fixers={'python': ['yapf', 'autopep8']}
-"let g:ale_fix_on_save=1
-""let g:ale_set_balloons=1
-""let g:ale_hover_to_preview=1
-""let g:ale_sign_error = '>>'
-""let g:ale_sign_warning = '--'
-""let g:airline#extensions#ale#enabled = 1
-""let g:ale_echo_msg_error_str = 'E'
-""let g:ale_echo_msg_warning_str = 'W'
-""let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
-""let g:ale_set_loclist = 0
-""let g:ale_set_quickfix = 1
-""let g:ale_open_list = 1
-"" Set this if you want to.
-"" This can be useful if you are combining ALE with
-"" some other plugin which sets quickfix errors, etc.
-""let g:ale_keep_list_window_open = 1
+" ===
+" === ale
+" ===
+let g:ale_linters={'python': ['pylint']}
+"let b:ale_fixers=['yapf']
+let g:ale_fixers={'python': ['yapf', 'autopep8']}
+let g:ale_fix_on_save=1
+"let g:ale_set_balloons=1
+"let g:ale_hover_to_preview=1
+"let g:ale_sign_error = '>>'
+"let g:ale_sign_warning = '--'
+"let g:airline#extensions#ale#enabled = 1
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
+"let g:ale_set_loclist = 0
+"let g:ale_set_quickfix = 1
+"let g:ale_open_list = 1
+" Set this if you want to.
+" This can be useful if you are combining ALE with
+" some other plugin which sets quickfix errors, etc.
+"let g:ale_keep_list_window_open = 1
 "noremap gd :ALEGoToDefinition<CR>
-
-
-"" ===
-"" === Taglist Vista.vim
-"" ===
-"noremap <silent> T :Vista!!<CR>
-"let g:vista_icon_indent = ["╰▸ ", "├▸ "]
-"let g:vista_default_executive = 'ctags'
-"let g:vista_fzf_preview = ['right:50%']
-"let g:vista#renderer#enable_icon = 1
-"let g:vista#renderer#icons = {
-	"\   "function": "\uf794",
-	"\   "variable": "\uf71b",
-	"\  }
-"function! NearestMethodOrFunction() abort
-	"return get(b:, 'vista_nearest_method_or_function', '')
-"endfunction
-"set statusline+=%{NearestMethodOrFunction()}
-"autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 
 " ===
@@ -582,11 +464,10 @@ let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/UltiSnips/']
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap <c-r>
 
 
+
 " ===
 " === FZF
 " ===
-" set rtp+=/usr/local/opt/fzf
-" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 set rtp+=~/.fzf
 noremap <C-p> :FZF<CR>
 " noremap <C-f> :Ag<CR>
@@ -655,7 +536,7 @@ command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
 			\   'sink': function('<sid>read_template_into_buffer')
 			\ })
 noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
-nmap <C-S-c> :VimspectorReset<CR>
+noremap <F7> :VimspectorReset<CR>
 sign define vimspectorBP text=☛ texthl=Normal
 sign define vimspectorBPDisabled text=o texthl=Normal
 sign define vimspectorPC text=> texthl=SpellBad
@@ -666,3 +547,9 @@ sign define vimspectorPC text=> texthl=SpellBad
 let g:indentLine_setColors = 0
 "let g:indentLine_color_term = 202
 "let g:indentLine_bgcolor_term = 2
+
+
+" ===
+" === startify
+" ===
+nnoremap st :Startify<CR>
